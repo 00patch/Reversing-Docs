@@ -16,6 +16,7 @@ The Portable Executable (PE) format is a data structure that tells the Windows O
 When a PE file is executed, the loader maps the file from disk (Raw) to memory (Virtual). The alignment on disk (`FileAlignment`) is usually smaller than the alignment in memory (`SectionAlignment`).
 
 Sections layout:
+```text
 +--------------+  <--- Header size (usually 0x400 or 0x1000 Bytes)
 |    Header    |  (DOS, NT, Section Table)
 +--------------+
@@ -29,6 +30,7 @@ Sections layout:
 +--------------+
 |    .rsrc     |  Resources (Icons, Strings, etc.)
 +--------------+
+```
 
 ## Memory
 In modern operating systems, processes do not access physical memory directly. Instead, they use **Virtual Memory**, an abstraction provided by the CPU (MMU) and the Kernel.
@@ -45,6 +47,7 @@ On 64-bit Windows, virtual addresses are 64 bits wide, but only the lower 48 bit
 - **Non-canonical Gap**: Addresses from `0x00008000'00000000` to `0xFFFF7FFF'FFFFFFFF` are invalid and will cause a fault if accessed.
 - **Kernel Space**: `0xFFFF8000'00000000` to `0xFFFFFFFF'FFFFFFFF` (8 TB). Where the OS kernel, drivers, and system-wide structures reside.
 
+```text
 +---------------------+  0xFFFFFFFF'FFFFFFFF
 |    Kernel Space     |  (Ring 0)
 +---------------------+  0xFFFF8000'00000000
@@ -54,6 +57,7 @@ On 64-bit Windows, virtual addresses are 64 bits wide, but only the lower 48 bit
 +---------------------+  0x00007FFF'FFFFFFFF
 |     User Space      |  (Ring 3)
 +---------------------+  0x00000000'00000000
+```
 
 Translation Path:
 Virtual Address -> [MMU / Page Tables] -> Physical RAM / Swap / Other Storage

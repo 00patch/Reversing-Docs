@@ -1,4 +1,4 @@
-# Reversing Study Documentation
+# Reversing Documentation
 This repository contains a collection of study notes and technical deep dives into Reverse Engineering, Windows Internals, and Exploitation.
 
 ## Index

@@ -13,3 +13,10 @@ This repository contains a collection of study notes and technical deep dives in
 
 ### 03 - Exploitation
 - [Vulnerability Exploitation](./03-Exploitation/Vulnerabilty_Exploitation.md): Buffer Overflows, UAF, ASLR Bypassing, ROP, and Shellcode.
+
+### 04 - Kernel
+- [Kernel Concepts](./04-Kernel/Kernel-concepts.md): Virtual Memory, SSDT, WDM, IRPs, and Token Stealing.
+
+### Cheat Sheets
+- [WinDbg](./CheatSheets/WinDbg.md): Essential commands for Windows debugging.
+- [IDA Pro](./CheatSheets/IDA.md): Navigation, decompilation, and data manipulation shortcuts.

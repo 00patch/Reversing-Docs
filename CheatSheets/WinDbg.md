@@ -53,6 +53,8 @@ WinDbg is the primary debugger for Windows, capable of both user-mode and kernel
 - **x <module>!<symbol>**: Examine symbols (e.g., `x ntdll!NtCreate*`).
 - **.reload /f**: Force-reload symbols.
 - **.reload /u <module>**: Unload symbols for a module.
+- **.symfix <dir>**: Setup directory symbols.
+- **.sympath**: Show the current symbols path.
 
 ---
 

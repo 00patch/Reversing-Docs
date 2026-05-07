@@ -66,6 +66,7 @@ WinDbg is the primary debugger for Windows, capable of both user-mode and kernel
 - **!pcr**: Show Processor Control Region (KPCR).
 - **!idt**: Show Interrupt Descriptor Table.
 - **!devnode 0 1**: Show device tree.
+- **ed nt!Kd_DEFAULT_MASK 0xffffffff** : Enable DbgPrint
 
 ---
 

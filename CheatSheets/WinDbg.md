@@ -67,6 +67,8 @@ WinDbg is the primary debugger for Windows, capable of both user-mode and kernel
 - **!idt**: Show Interrupt Descriptor Table.
 - **!devnode 0 1**: Show device tree.
 - **ed nt!Kd_DEFAULT_MASK 0xffffffff** : Enable DbgPrint
+- **!pte <base lm address>**: Get the information about a VirtualMemory (pfs)
+- **pfs+(las 3 bytes)**: Get the physical memory
 
 ---
 

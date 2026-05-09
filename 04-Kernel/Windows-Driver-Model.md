@@ -188,25 +188,6 @@ struct _IO_STACK_LOCATION
     VOID* Context;                                                          
 };
 ```
-### IRP (I/O Request Packet)
-```c
-struct _IRP {
-    short Type;
-    unsigned short Size;
-    struct _MDL *MdlAddress;         // Memory Descriptor List
-    unsigned long Flags;
-    union {
-        struct _IRP *MasterIrp;
-        long IrpCount;
-    } AssociatedIrp;                 // SystemBuffer is here
-    struct _IO_STATUS_BLOCK IoStatus;
-    char RequestorMode;
-    // ...
-    struct _IO_STACK_LOCATION *Tail.Overlay.CurrentStackLocation;
-};
-```
-
----
 
 ### Major Function Table
 The `MajorFunction` array in the `DRIVER_OBJECT` contains entry points for different I/O requests.
@@ -214,7 +195,7 @@ The `MajorFunction` array in the `DRIVER_OBJECT` contains entry points for diffe
 ```c
 enum Major_Codes : unsigned __int8
 {
-  IRP_MJ_CREATE = 0x0,
+  IRP_MJ_CREATE = 0x3,
   IRP_MJ_CREATE_NAMED_PIPE = 0x1,
   IRP_MJ_CLOSE = 0x2,
   IRP_MJ_READ = 0x3,

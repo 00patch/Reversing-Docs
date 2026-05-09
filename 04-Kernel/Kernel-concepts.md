@@ -100,41 +100,12 @@ Drivers are organized in **Device Stacks**. An I/O request travels from the top 
 
 ### Major Function Table
 The `MajorFunction` array in the `DRIVER_OBJECT` contains entry points for different I/O requests.
-
 ```c
-enum Major_Codes : unsigned __int8
-{
-  IRP_MJ_CREATE = 0x0,
-  IRP_MJ_CREATE_NAMED_PIPE = 0x1,
-  IRP_MJ_CLOSE = 0x2,
-  IRP_MJ_READ = 0x3,
-  IRP_MJ_WRITE = 0x4,
-  IRP_MJ_QUERY_INFORMATION = 0x5,
-  IRP_MJ_SET_INFORMATION = 0x6,
-  IRP_MJ_QUERY_EA = 0x7,
-  IRP_MJ_SET_EA = 0x8,
-  IRP_MJ_FLUSH_BUFFERS = 0x9,
-  IRP_MJ_QUERY_VOLUME_INFORMATION = 0xA,
-  IRP_MJ_SET_VOLUME_INFORMATION = 0xB,
-  IRP_MJ_DIRECTORY_CONTROL = 0xC,
-  IRP_MJ_FILE_SYSTEM_CONTROL = 0xD,
-  IRP_MJ_DEVICE_CONTROL = 0xE,
-  IRP_MJ_INTERNAL_DEVICE_CONTROL = 0xF,
-  IRP_MJ_SHUTDOWN = 0x10,
-  IRP_MJ_LOCK_CONTROL = 0x11,
-  IRP_MJ_CLEANUP = 0x12,
-  IRP_MJ_CREATE_MAILSLOT = 0x13,
-  IRP_MJ_QUERY_SECURITY = 0x14,
-  IRP_MJ_SET_SECURITY = 0x15,
-  IRP_MJ_POWER = 0x16,
-  IRP_MJ_SYSTEM_CONTROL = 0x17,
-  IRP_MJ_DEVICE_CHANGE = 0x18,
-  IRP_MJ_QUERY_QUOTA = 0x19,
-  IRP_MJ_SET_QUOTA = 0x1A,
-  IRP_MJ_PNP = 0x1B,
-  IRP_MJ_PNP_POWER = 0x1C,
-  IRP_MJ_MAXIMUM_FUNCTION = 0x1D,
-};
+struct _DEVICE_OBJECT{
+  //.....
+    NTSTATUS (*MajorFunction[28])(struct _DEVICE_OBJECT* arg1, struct _IRP* arg2); //0x70
+}
+
 ```
 
 ### Buffer Access Methods
@@ -254,6 +225,102 @@ struct _IRP {
     struct _IO_STACK_LOCATION *Tail.Overlay.CurrentStackLocation;
 };
 ```
+### Device Types
+```c
+#define FILE_DEVICE_BEEP                    0x00000001
+#define FILE_DEVICE_CD_ROM                  0x00000002
+#define FILE_DEVICE_CD_ROM_FILE_SYSTEM      0x00000003
+#define FILE_DEVICE_CONTROLLER              0x00000004
+#define FILE_DEVICE_DATALINK                0x00000005
+#define FILE_DEVICE_DFS                     0x00000006
+#define FILE_DEVICE_DISK                    0x00000007
+#define FILE_DEVICE_DISK_FILE_SYSTEM        0x00000008
+#define FILE_DEVICE_FILE_SYSTEM             0x00000009
+#define FILE_DEVICE_INPORT_PORT             0x0000000a
+#define FILE_DEVICE_KEYBOARD                0x0000000b
+#define FILE_DEVICE_MAILSLOT                0x0000000c
+#define FILE_DEVICE_MIDI_IN                 0x0000000d
+#define FILE_DEVICE_MIDI_OUT                0x0000000e
+#define FILE_DEVICE_MOUSE                   0x0000000f
+#define FILE_DEVICE_MULTI_UNC_PROVIDER      0x00000010
+#define FILE_DEVICE_NAMED_PIPE              0x00000011
+#define FILE_DEVICE_NETWORK                 0x00000012
+#define FILE_DEVICE_NETWORK_BROWSER         0x00000013
+#define FILE_DEVICE_NETWORK_FILE_SYSTEM     0x00000014
+#define FILE_DEVICE_NULL                    0x00000015
+#define FILE_DEVICE_PARALLEL_PORT           0x00000016
+#define FILE_DEVICE_PHYSICAL_NETCARD        0x00000017
+#define FILE_DEVICE_PRINTER                 0x00000018
+#define FILE_DEVICE_SCANNER                 0x00000019
+#define FILE_DEVICE_SERIAL_MOUSE_PORT       0x0000001a
+#define FILE_DEVICE_SERIAL_PORT             0x0000001b
+#define FILE_DEVICE_SCREEN                  0x0000001c
+#define FILE_DEVICE_SOUND                   0x0000001d
+#define FILE_DEVICE_STREAMS                 0x0000001e
+#define FILE_DEVICE_TAPE                    0x0000001f
+#define FILE_DEVICE_TAPE_FILE_SYSTEM        0x00000020
+#define FILE_DEVICE_TRANSPORT               0x00000021
+#define FILE_DEVICE_UNKNOWN                 0x00000022
+#define FILE_DEVICE_VIDEO                   0x00000023
+#define FILE_DEVICE_VIRTUAL_DISK            0x00000024
+#define FILE_DEVICE_WAVE_IN                 0x00000025
+#define FILE_DEVICE_WAVE_OUT                0x00000026
+#define FILE_DEVICE_8042_PORT               0x00000027
+#define FILE_DEVICE_NETWORK_REDIRECTOR      0x00000028
+#define FILE_DEVICE_BATTERY                 0x00000029
+#define FILE_DEVICE_BUS_EXTENDER            0x0000002a
+#define FILE_DEVICE_MODEM                   0x0000002b
+#define FILE_DEVICE_VDM                     0x0000002c
+#define FILE_DEVICE_MASS_STORAGE            0x0000002d
+#define FILE_DEVICE_SMB                     0x0000002e
+#define FILE_DEVICE_KS                      0x0000002f
+#define FILE_DEVICE_CHANGER                 0x00000030
+#define FILE_DEVICE_SMARTCARD               0x00000031
+#define FILE_DEVICE_ACPI                    0x00000032
+#define FILE_DEVICE_DVD                     0x00000033
+#define FILE_DEVICE_FULLSCREEN_VIDEO        0x00000034
+#define FILE_DEVICE_DFS_FILE_SYSTEM         0x00000035
+#define FILE_DEVICE_DFS_VOLUME              0x00000036
+#define FILE_DEVICE_SERENUM                 0x00000037
+#define FILE_DEVICE_TERMSRV                 0x00000038
+#define FILE_DEVICE_KSEC                    0x00000039
+#define FILE_DEVICE_FIPS                    0x0000003A
+#define FILE_DEVICE_INFINIBAND              0x0000003B
+#define FILE_DEVICE_VMBUS                   0x0000003E
+#define FILE_DEVICE_CRYPT_PROVIDER          0x0000003F
+#define FILE_DEVICE_WPD                     0x00000040
+#define FILE_DEVICE_BLUETOOTH               0x00000041
+#define FILE_DEVICE_MT_COMPOSITE            0x00000042
+#define FILE_DEVICE_MT_TRANSPORT            0x00000043
+#define FILE_DEVICE_BIOMETRIC               0x00000044
+#define FILE_DEVICE_PMI                     0x00000045
+#define FILE_DEVICE_EHSTOR                  0x00000046
+#define FILE_DEVICE_DEVAPI                  0x00000047
+#define FILE_DEVICE_GPIO                    0x00000048
+#define FILE_DEVICE_USBEX                   0x00000049
+#define FILE_DEVICE_CONSOLE                 0x00000050
+#define FILE_DEVICE_NFP                     0x00000051
+#define FILE_DEVICE_SYSENV                  0x00000052
+#define FILE_DEVICE_VIRTUAL_BLOCK           0x00000053
+#define FILE_DEVICE_POINT_OF_SERVICE        0x00000054
+#define FILE_DEVICE_STORAGE_REPLICATION     0x00000055
+#define FILE_DEVICE_TRUST_ENV               0x00000056
+#define FILE_DEVICE_UCM                     0x00000057
+#define FILE_DEVICE_UCMTCPCI                0x00000058
+#define FILE_DEVICE_PERSISTENT_MEMORY       0x00000059
+#define FILE_DEVICE_NVDIMM                  0x0000005a
+#define FILE_DEVICE_HOLOGRAPHIC             0x0000005b
+#define FILE_DEVICE_SDFXHCI                 0x0000005c
+#define FILE_DEVICE_UCMUCSI                 0x0000005d
+#define FILE_DEVICE_PRM                     0x0000005e
+#define FILE_DEVICE_EVENT_COLLECTOR         0x0000005f
+#define FILE_DEVICE_USB4                    0x00000060
+#define FILE_DEVICE_SOUNDWIRE               0x00000061
+#define FILE_DEVICE_FABRIC_NVME             0x00000062
+#define FILE_DEVICE_SVM                     0x00000063
+#define FILE_DEVICE_HARDWARE_ACCELERATOR    0x00000064
+#define FILE_DEVICE_I3C                     0x00000065
+```
 
 ---
 
@@ -269,3 +336,5 @@ struct _IRP {
 | **!pcr** | Show the Processor Control Region (KPCR). |
 | **!devnode 0 1** | Show the device tree. |
 | **!irp <addr>** | Dump an IRP structure. |
+follow kernel addr region
+![image](images/screenshot_20260505_184412.png)
